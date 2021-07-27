@@ -1,14 +1,13 @@
 import { CircularProgress } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import './Quiz.css';
+import Question from '../../components/Question/Question';
 
 const Quiz = ({ name, score, questions, setQuestions, setScore }) => {
   const [options, setOptions] = useState();
   const [currQues, setCurrQues] = useState(0);
 
   useEffect(() => {
-    console.log('questionssss', questions);
-
     setOptions(
       questions &&
         hanfleShuffle([
@@ -17,9 +16,6 @@ const Quiz = ({ name, score, questions, setQuestions, setScore }) => {
         ])
     );
   }, [questions]);
-
-  console.log('optionsss', options);
-  console.log('this is my name: ', name);
 
   const hanfleShuffle = (array) => {
     return array.sort(() => Math.random() - 0.5);
@@ -35,6 +31,16 @@ const Quiz = ({ name, score, questions, setQuestions, setScore }) => {
             <span>{questions[currQues].category}</span>
             <span>Score : {score}</span>
           </div>
+          <Question
+            currQues={currQues}
+            setCurrQues={setCurrQues}
+            questions={questions}
+            options={options}
+            correct={questions[currQues]?.correct_answer}
+            score={score}
+            setScore={setScore}
+            setQuestions={setQuestions}
+          />
         </>
       ) : (
         <CircularProgress
