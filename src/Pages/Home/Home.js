@@ -21,7 +21,6 @@ const Home = ({ name, setName, fetchQuestions }) => {
     } else {
       setError(false);
       fetchQuestions(category, difficulty);
-      console.log(fetchQuestions);
       history.push('/quiz');
     }
   };
