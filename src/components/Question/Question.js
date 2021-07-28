@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Button } from '@material-ui/core';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { useHistory } from 'react-router-dom';
+import './Question.css';
 const Question = ({
   currQues,
   setCurrQues,
@@ -22,10 +24,24 @@ const Question = ({
     else if (opt === correct) return 'select';
   };
 
-  const handleCheck = (i) => {
-    setSelected(i);
-    if (i === correct) setScore(score + 1);
+  const handleCheck = (opt) => {
+    setSelected(opt);
+    if (opt === correct) setScore(score + 1);
     setError(false);
+  };
+
+  const handleNext = () => {
+    if (currQues > 8) {
+      history.push('/result');
+    } else if (selected) {
+      setCurrQues(currQues + 1);
+      setSelected();
+    } else setError('Please select an option first');
+  };
+
+  const handleQuit = () => {
+    setCurrQues(0);
+    setQuestions();
   };
   return (
     <div className='question'>
@@ -46,6 +62,28 @@ const Question = ({
                 {opt}
               </button>
             ))}
+        </div>
+
+        <div className='controls'>
+          <Button
+            variant='contained'
+            color='secondary'
+            size='large'
+            style={{ width: 185 }}
+            href='/'
+            onClick={() => handleQuit()}
+          >
+            Quit
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            size='large'
+            style={{ width: 185 }}
+            onClick={handleNext}
+          >
+            {currQues > 20 ? 'Submit' : 'Next Question'}
+          </Button>
         </div>
       </div>
     </div>

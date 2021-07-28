@@ -15,7 +15,7 @@ const Quiz = ({ name, score, questions, setQuestions, setScore }) => {
           ...questions[currQues]?.incorrect_answers,
         ])
     );
-  }, [questions, currQues]);
+  }, [currQues, questions]);
 
   const hanfleShuffle = (array) => {
     return array.sort(() => Math.random() - 0.5);
